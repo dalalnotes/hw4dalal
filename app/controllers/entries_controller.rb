@@ -9,6 +9,11 @@ class EntriesController < ApplicationController
     @entry.place_id = params[:place_id]
     @entry.user_id = @current_user.id  # Associate with current user
 
+    #Attach image if provided
+    if params[:image]
+      @entry.image.attach(params[:image])
+    end
+
     if @entry.save
       redirect_to "/places/#{@entry.place_id}", notice: "Entry added!"
     else
